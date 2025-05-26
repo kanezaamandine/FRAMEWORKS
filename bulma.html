@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSolutions Professional Services</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar is-white is-fixed-top">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item">
+                    <h1 class="title is-4 has-text-link">TechSolutions</h1>
+                </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="#home" class="navbar-item">Home</a>
+                    <a href="#services" class="navbar-item">Services</a>
+                    <a href="#about" class="navbar-item">About</a>
+                    <a href="#contact" class="navbar-item">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero is-link is-fullheight-with-navbar">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title is-1">
+                    Professional Tech Solutions
+                </h1>
+                <p class="subtitle is-4">
+                    Empowering businesses with cutting-edge technology and innovative solutions
+                </p>
+                <div class="buttons is-centered">
+                    <a href="#services" class="button is-light is-medium">Our Services</a>
+                    <a href="#contact" class="button is-outlined is-white is-medium">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="has-text-centered mb-6">
+                <h2 class="title is-2">Our Services</h2>
+                <p class="subtitle is-5">Comprehensive solutions tailored to your business needs</p>
+            </div>
+
+            <div class="columns">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content has-text-centered">
+                            <div class="icon is-large has-text-link mb-4">
+                                <!-- Example icon (you can replace with FontAwesome or similar) -->
+                                <i class="fas fa-laptop-code fa-2x"></i>
+                            </div>
+                            <h3 class="title is-4">Web Development</h3>
+                            <p>Custom websites and web applications built with modern technologies and best practices.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content has-text-centered">
+                            <div class="icon is-large has-text-link mb-4">
+                                <i class="fas fa-mobile-alt fa-2x"></i>
+                            </div>
+                            <h3 class="title is-4">Mobile Apps</h3>
+                            <p>Native and cross-platform mobile applications for iOS and Android devices.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content has-text-centered">
+                            <div class="icon is-large has-text-link mb-4">
+                                <i class="fas fa-chart-line fa-2x"></i>
+                            </div>
+                            <h3 class="title is-4">Data Analytics</h3>
+                            <p>Transform your data into actionable insights with our advanced analytics solutions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.querySelector('.navbar-burger');
+            const menu = document.querySelector('.navbar-menu');
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('is-active');
+                menu.classList.toggle('is-active');
+            });
+        });
+    </script>
+</body>
+</html>
