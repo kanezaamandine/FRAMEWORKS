@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Our Beautiful Family</title>
+    <!-- Materialize CSS CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+      .carousel img {
+        height: 300px;
+        object-fit: cover;
+      }
+      .scroll-btn {
+        margin-top: 2rem;
+      }
+      .member img {
+        height: 200px;
+        object-fit: cover;
+      }
+      footer {
+        background-color: #0077cc;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body class="grey lighten-4">
+
+    <!-- Hero Section -->
+    <header class="section blue-grey lighten-5 center-align">
+      <div class="container">
+        <h3 class="blue-text text-darken-3">Welcome to Our Family 👨‍👩‍👧‍👦</h3>
+        <div class="carousel carousel-slider center" id="carousel">
+          <a class="carousel-item"><img src="papa.jpg" alt="Slide 1"></a>
+          <a class="carousel-item"><img src="mama.jpg" alt="Slide 2"></a>
+          <a class="carousel-item"><img src="kaneza.jpg" alt="Slide 3"></a>
+          <a class="carousel-item"><img src="big.jpg" alt="Slide 4"></a>
+          <a class="carousel-item"><img src="bi.jpg" alt="Slide 5"></a>
+          <a class="carousel-item"><img src="ke.jpg" alt="Slide 6"></a>
+        </div>
+        <a href="#family" class="btn-large scroll-btn blue">Click to Explore ↓</a>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="family" class="section">
+      <div class="container">
+        <div class="row">
+
+          <!-- Family Members Cards -->
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-image">
+                <img src="papa.jpg" alt="Father">
+              </div>
+              <div class="card-content">
+                <span class="card-title blue-text">Dad - Mr. Jean</span>
+                <p>Our superhero who always supports and guides us. Loves leadership and fixing things.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-image">
+                <img src="mama.jpg" alt="Mother">
+              </div>
+              <div class="card-content">
+                <span class="card-title blue-text">Mom - Mrs. Josee</span>
+                <p>The heart of our home who keeps everyone smiling. Amazing at cooking and much caring!</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-image">
+                <img src="big.jpg" alt="Shema">
+              </div>
+              <div class="card-content">
+                <span class="card-title blue-text">Shema</span>
+                <p>Our big brother who understands our situation no matter how it is.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-image">
+                <img src="bi.jpg" alt="Ntwari">
+              </div>
+              <div class="card-content">
+                <span class="card-title blue-text">Ntwari</span>
+                <p>The second born of our family with many stories and looking forward to treating people.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-image">
+                <img src="kaneza.jpg" alt="Kaneza">
+              </div>
+              <div class="card-content">
+                <span class="card-title blue-text">Kaneza</span>
+                <p>The home's future programmer ready to change everything.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-image">
+                <img src="ke.jpg" alt="Keza">
+              </div>
+              <div class="card-content">
+                <span class="card-title blue-text">Keza</span>
+                <p>Our little explorer with endless energy in studying and the best giggles!</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; Love Family ❤️.</p>
+    </footer>
+
+    <!-- Materialize JS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const elems = document.querySelectorAll('.carousel');
+        M.Carousel.init(elems, {
+          fullWidth: true,
+          indicators: true
+        });
+
+        setInterval(() => {
+          const instance = M.Carousel.getInstance(elems[0]);
+          instance.next();
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>
