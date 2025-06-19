@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Planner</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/css/foundation.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .event-card {
+            border: 1px solid #e6e6e6;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        .event-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .event-date {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px 8px 0 0;
+            padding: 1rem;
+            text-align: center;
+        }
+        .event-content {
+            padding: 1rem;
+        }
+        .priority-high { border-left: 5px solid #cc4125; }
+        .priority-medium { border-left: 5px solid #f39c12; }
+        .priority-low { border-left: 5px solid #27ae60; }
+        .status-planning { background-color: #3498db; }
+        .status-confirmed { background-color: #27ae60; }
+        .status-completed { background-color: #95a5a6; }
+        .status-cancelled { background-color: #e74c3c; }
+        .calendar-view {
+            background: white;
+            border: 1px solid #e6e6e6;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .calendar-day {
+            min-height: 100px;
+            border: 1px solid #f0f0f0;
+            padding: 0.5rem;
+            position: relative;
+        }
+        .calendar-event {
+            background: #667eea;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-bottom: 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <ul class="menu">
+                <li class="menu-text">
+                    <i class="fas fa-calendar-alt"></i>
+                    Event Planner Pro
+                </li>
+            </ul>
+        </div>
+        <div class="top-bar-right">
+            <ul class="menu">
+                <li><button class="button primary" onclick="toggleView()">
+                    <i class="fas fa-calendar" id="viewIcon"></i>
+                    <span id="viewText">Calendar View</span>
+                </button></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="grid-container">
+
+        <div class="grid-x grid-margin-x" style="margin-top: 2rem;">
+            <div class="cell">
+                <div class="callout">
+                    <h4><i class="fas fa-plus-circle"></i> Create New Event</h4>
+                    
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell medium-6">
+                            <label>Event Title
+                                <input type="text" id="eventTitle" placeholder="Enter event title">
+                            </label>
+                        </div>
+                        <div class="cell medium-6">
+                            <label>Event Type
+                                <select id="eventType">
+                                    <option value="meeting">Meeting</option>
+                                    <option value="conference">Conference</option>
+                                    <option value="workshop">Workshop</option>
+                                    <option value="social">Social Event</option>
+                                    <option value="deadline">Deadline</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell medium-4">
+                            <label>Date
+                                <input type="date" id="eventDate">
+                            </label>
+                        </div>
+                        <div class="cell medium-4">
+                            <label>Start Time
+                                <input type="time" id="startTime">
+                            </label>
+                        </div>
+                        <div class="cell medium-4">
+                            <label>End Time
+                                <input type="time" id="endTime">
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell medium-6">
+                            <label>Location
+                                <input type="text" id="location" placeholder="Event location">
+                            </label>
+                        </div>
+                        <div class="cell medium-3">
+                            <label>Priority
+                                <select id="priority">
+                                    <option value="low">Low</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="cell medium-3">
+                            <label>Status
+                                <select id="status">
+                                    <option value="planning" selected>Planning</option>
+                                    <option value="confirmed">Confirmed</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <label>Description
+                        <textarea id="description" placeholder="Event description and notes" rows="3"></textarea>
+                    </label>
+                    
+                    <label>Attendees (comma-separated)
+                        <input type="text" id="attendees" placeholder="john@email.com, jane@email.com">
+                    </label>
+                    
+                    <button class="button primary expanded" onclick="addEvent()">
+                        <i class="fas fa-plus"></i> Add Event
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="grid-x grid-margin-x">
+            <div class="cell">
+                <div class="callout secondary">
+                    <h5><i class="fas fa-filter"></i> Filter Events</h5>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell medium-3">
+                            <select id="filterType" onchange="filterEvents()">
+                                <option value="all">All Types</option>
+                                <option value="meeting">Meetings</option>
+                                <option value="conference">Conferences</option>
+                                <option value="workshop">Workshops</option>
+                                <option value="social">Social Events</option>
+                                <option value="deadline">Deadlines</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="cell medium-3">
+                            <select id="filterStatus" onchange="filterEvents()">
+                                <option value="all">All Status</option>
+                                <option value="planning">Planning</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="cell medium-3">
+                            <select id="filterPriority" onchange="filterEvents()">
+                                <option value="all">All Priorities</option>
+                                <option value="high">High Priority</option>
+                                <option value="medium">Medium Priority</option>
+                                <option value="low">Low Priority</option>
+                            </select>
+                        </div>
+                        <div class="cell medium-3">
+                            <input type="text" id="searchInput" placeholder="Search events..." onkeyup="filterEvents()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div id="listView">
+            <div class="grid-x grid-margin-x">
+                <div class="cell">
+                    <h4><i class="fas fa-list"></i> Upcoming Events</h4>
+                    <div id="eventsList">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div id="calendarView" style="display: none;">
+            <div class="grid-x grid-margin-x">
+                <div class="cell">
+                    <h4><i class="fas fa-calendar"></i> Calendar View</h4>
+                    <div class="calendar-view">
+                        <div class="text-center">
+                            <button class="button secondary" onclick="changeMonth(-1)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span id="currentMonth" style="margin: 0 2rem; font-size: 1.2rem; font-weight: bold;"></span>
+                            <button class="button secondary" onclick="changeMonth(1)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div id="calendarGrid" class="grid-x grid-margin-x" style="margin-top: 1rem;">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="reveal" id="eventModal" data-reveal>
+        <h3 id="modalTitle">Event Details</h3>
+        <div id="modalContent">
+    
+        </div>
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/js/foundation.min.js"></script>
+    <script>
+        let events = [];
+        let currentDate = new Date();
+        let isCalendarView = false;
+
+       
+        $(document).foundation();
+
+        function addEvent() {
+            const title = document.getElementById('eventTitle').value.trim();
+            const type = document.getElementById('eventType').value;
+            const date = document.getElementById('eventDate').value;
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+            const location = document.getElementById('location').value.trim();
+            const priority = document.getElementById('priority').value;
+            const status = document.getElementById('status').value;
+            const description = document.getElementById('description').value.trim();
+            const attendees = document.getElementById('attendees').value.trim();
+
+            if (title && date && startTime) {
+                const event = {
+                    id: Date.now(),
+                    title,
+                    type,
+                    date: new Date(date),
+                    startTime,
+                    endTime,
+                    location,
+                    priority,
+                    status,
+                    description,
+                    attendees: attendees ? attendees.split(',').map(a => a.trim()) : []
+                };
+
+                events.push(event);
+                clearForm();
+                displayEvents();
+                if (isCalendarView) {
+                    generateCalendar();
+                }
+            } else {
+                alert('Please fill in the required fields (Title, Date, Start Time)');
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('eventTitle').value = '';
+            document.getElementById('eventDate').value = '';
+            document.getElementById('startTime').value = '';
+            document.getElementById('endTime').value = '';
+            document.getElementById('location').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('attendees').value = '';
+        }
+
+        function displayEvents(eventsToShow = events) {
+            const container = document.getElementById('eventsList');
+            
+            if (eventsToShow.length === 0) {
+                container.innerHTML = '<div class="callout warning">No events found. Create your first event above!</div>';
+                return;
+            }
+
+            
+            const sorted = [...eventsToShow].sort((a, b) => {
+                const dateA = new Date(a.date.toDateString() + ' ' + a.startTime);
+                const dateB = new Date(b.date.toDateString() + ' ' + b.startTime);
+                return dateA - dateB;
+            });
+
+            container.innerHTML = sorted.map(event => {
+                const typeIcon = getTypeIcon(event.type);
+                const isUpcoming = event.date >= new Date().setHours(0,0,0,0);
+                
+                return `
+                    <div class="event-card priority-${event.priority}">
+                        <div class="grid-x">
+                            <div class="cell medium-3">
+                                <div class="event-date">
+                                    <div style="font-size: 1.5rem; font-weight: bold;">
+                                        ${event.date.getDate()}
+                                    </div>
+                                    <div>${event.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</div>
+                                    <div style="font-size: 0.9rem; margin-top: 0.5rem;">
+                                        ${event.startTime} ${event.endTime ? '- ' + event.endTime : ''}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cell medium-9">
+                                <div class="event-content">
+                                    <div class="grid-x align-justify">
+                                        <div class="cell auto">
+                                            <h5 style="margin-bottom: 0.5rem;">
+                                                <i class="fas ${typeIcon}"></i>
+                                                ${event.title}
+                                            </h5>
+                                            <p style="margin-bottom: 0.5rem; color: #666;">
+                                                ${event.location ? '<i class="fas fa-map-marker-alt"></i> ' + event.location : ''}
+                                            </p>
+                                            ${event.description ? '<p style="margin-bottom: 0.5rem;">' + event.description + '</p>' : ''}
+                                            ${event.attendees.length > 0 ? '<p style="margin-bottom: 0.5rem; font-size: 0.9rem;"><i class="fas fa-users"></i> ' + event.attendees.length + ' attendees</p>' : ''}
+                                        </div>
+                                        <div class="cell shrink">
+                                            <span class="label status-${event.status}">${event.status}</span>
+                                            <div style="margin-top: 0.5rem;">
+                                                <button class="button tiny secondary" onclick="viewEvent(${event.id})">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="button tiny alert" onclick="deleteEvent(${event.id})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getTypeIcon(type) {
+            const icons = {
+                meeting: 'fa-handshake',
+                conference: 'fa-microphone',
+                workshop: 'fa-tools',
+                social: 'fa-users',
+                deadline: 'fa-clock',
+                other: 'fa-calendar-day'
+            };
+            return icons[type] || 'fa-calendar-day';
+        }
+
+        function viewEvent(id) {
+            const event = events.find(e => e.id === id);
+            if (event) {
+                document.getElementById('modalTitle').textContent = event.title;
+                document.getElementById('modalContent').innerHTML = `
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell medium-6">
+                            <p><strong>Type:</strong> ${event.type}</p>
+                            <p><strong>Date:</strong> ${event.date.toLocaleDateString()}</p>
+                            <p><strong>Time:</strong> ${event.startTime} ${event.endTime ? '- ' + event.endTime : ''}</p>
+                            <p><strong>Priority:</strong> ${event.priority}</p>
+                        </div>
+                        <div class="cell medium-6">
+                            <p><strong>Status:</strong> ${event.status}</p>
+                            <p><strong>Location:</strong> ${event.location || 'Not specified'}</p>
+                        </div>
+                    </div>
+                    ${event.description ? '<p><strong>Description:</strong><br>' + event.description + '</p>' : ''}
+                    ${event.attendees.length > 0 ? '<p><strong>Attendees:</strong><br>' + event.attendees.join(', ') + '</p>' : ''}
+                `;
+                $('#eventModal').foundation('open');
+            }
+        }
+
+        function deleteEvent(id) {
+            if (confirm('Are you sure you want to delete this event?')) {
+                events = events.filter(e => e.id !== id);
+                displayEvents();
+                if (isCalendarView) {
+                    generateCalendar();
+                }
+            }
+        }
+
+        function filterEvents() {
+            const typeFilter = document.getElementById('filterType').value;
+            const statusFilter = document.getElementById('filterStatus').value;
+            const priorityFilter = document.getElementById('filterPriority').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            let filtered = events.filter(event => {
+                const matchesType = typeFilter === 'all' || event.type === typeFilter;
+                const matchesStatus = statusFilter === 'all' || event.status === statusFilter;
+                const matchesPriority = priorityFilter === 'all' || event.priority === priorityFilter;
+                const matchesSearch = event.title.toLowerCase().includes(searchTerm) || 
+                                    event.description.toLowerCase().includes(searchTerm) ||
+                                    event.location.toLowerCase().includes(searchTerm);
+                
+                return matchesType && matchesStatus && matchesPriority && matchesSearch;
+            });
+
+            displayEvents(filtered);
+        }
+
+        function toggleView() {
+            isCalendarView = !isCalendarView;
+            const listView = document.getElementById('listView');
+            const calendarView = document.getElementById('calendarView');
+            const viewIcon = document.getElementById('viewIcon');
+            const viewText = document.getElementById('viewText');
+
+            if (isCalendarView) {
+                listView.style.display = 'none';
+                calendarView.style.display = 'block';
+                viewIcon.className = 'fas fa-list';
+                viewText.textContent = 'List View';
+                generateCalendar();
+            } else {
+                listView.style.display = 'block';
+                calendarView.style.display = 'none';
+                viewIcon.className = 'fas fa-calendar';
+                viewText.textContent = 'Calendar View';
+            }
+        }
+
+        function generateCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('currentMonth').textContent = 
+                new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            let calendarHTML = '<div class="cell small-12"><div class="grid-x">';
+            
+        
+            const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayHeaders.forEach(day => {
+                calendarHTML += `<div class="cell small-1 text-center" style="font-weight: bold; padding: 0.5rem;">${day}</div>`;
+            });
+            calendarHTML += '</div></div>';
+
+            
+            calendarHTML += '<div class="cell small-12"><div class="grid-x">';
+            
+            
+            for (let i = 0; i < firstDay; i++) {
+                calendarHTML += '<div class="cell small-1 calendar-day"></div>';
+            }
+            
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEvents = events.filter(event => 
+                    event.date.getDate() === day && 
+                    event.date.getMonth() === month && 
+                    event.date.getFullYear() === year
+                );
+                
+                calendarHTML += `
+                    <div class="cell small-1 calendar-day">
+                        <div style="font-weight: bold;">${day}</div>
+                        ${dayEvents.map(event => 
+                            `<div class="calendar-event" onclick="viewEvent(${event.id})">${event.title}</div>`
+                        ).join('')}
+                    </div>
+                `;
+            }
+            
+            calendarHTML += '</div></div>';
+            document.getElementById('calendarGrid').innerHTML = calendarHTML;
+        }
+
+        function changeMonth(direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            generateCalendar();
+        }
+
+        
+        document.getElementById('eventDate').value = new Date().toISOString().split('T')[0];
+        events = [
+            {
+                id: 1,
+                title: "Team Meeting",
+                type: "meeting",
+                date: new Date(),
+                startTime: "10:00",
+                endTime: "11:00",
+                location: "Conference Room A",
+                priority: "medium",
+                status: "confirmed",
+                description: "Weekly team sync meeting",
+                attendees: ["john@company.com", "jane@company.com"]
+            },
+            {
+                id: 2,
+                title: "Project Deadline",
+                type: "deadline",
+                date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), 
+                startTime: "17:00",
+                endTime: "",
+                location: "",
+                priority: "high",
+                status: "planning",
+                description: "Final submission for client project",
+                attendees: []
+            }
+        ];
+
+        displayEvents();
+    </script>
+</body>
+</html>

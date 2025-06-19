@@ -3,93 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechSolutions Professional Services</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/css/foundation.min.css">
-</head>
-<body>
-
-    <nav class="top-bar">
-        <div class="top-bar-left">
-            <ul class="menu">
-                <li class="menu-text"><h1 style="margin:0; font-size:1.5rem; color:#007aff;">TechSolutions</h1></li>
-            </ul>
-        </div>
-        <div class="top-bar-right">
-            <ul class="menu show-for-medium">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <section id="home" style="padding-top:4rem; background: linear-gradient(to bottom right, #007aff, #004080); color:white;">
-        <div class="grid-container">
-            <div class="grid-x grid-padding-x align-center text-center" style="padding:4rem 0;">
-                <div class="cell small-12">
-                    <h1 style="font-size:3rem; font-weight:bold; margin-bottom:1rem;">Professional Tech Solutions</h1>
-                    <p style="font-size:1.5rem; margin-bottom:2rem; color:#cce0ff;">
-                        Empowering businesses with cutting-edge technology and innovative solutions
-                    </p>
-                    <div>
-                        <a href="#services" class="button primary large">Our Services</a>
-                        <a href="#contact" class="button large hollow white" style="border-color:white; color:white;">Get Started</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" style="padding:4rem 0; background:white;">
-        <div class="grid-container">
-            <div class="text-center" style="margin-bottom:3rem;">
-                <h2 style="font-size:2.5rem; font-weight:bold; margin-bottom:1rem;">Our Services</h2>
-                <p style="font-size:1.25rem; color:#666;">Comprehensive solutions tailored to your business needs</p>
-            </div>
-            <div class="grid-x grid-margin-x">
-                <div class="cell small-12 medium-4">
-                    <div class="callout" style="text-align:center;">
-                        <div style="width:4rem; height:4rem; background:#007aff; border-radius:50%; margin:0 auto 1rem; display:flex; align-items:center; justify-content:center;">
-                            <svg style="width:2rem; height:2rem; color:white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <h3 style="font-size:1.5rem; font-weight:600; margin-bottom:1rem;">Web Development</h3>
-                        <p style="color:#666;">Custom websites and web applications built with modern technologies and best practices.</p>
-                    </div>
-                </div>
-                <div class="cell small-12 medium-4">
-                    <div class="callout" style="text-align:center;">
-                        <div style="width:4rem; height:4rem; background:#007aff; border-radius:50%; margin:0 auto 1rem; display:flex; align-items:center; justify-content:center;">
-                            <svg style="width:2rem; height:2rem; color:white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <h3 style="font-size:1.5rem; font-weight:600; margin-bottom:1rem;">Mobile Apps</h3>
-                        <p style="color:#666;">Native and cross-platform mobile applications for iOS and Android devices.</p>
-                    </div>
-                </div>
-                <div class="cell small-12 medium-4">
-                    <div class="callout" style="text-align:center;">
-                        <div style="width:4rem; height:4rem; background:#007aff; border-radius:50%; margin:0 auto 1rem; display:flex; align-items:center; justify-content:center;">
-                            <svg style="width:2rem; height:2rem; color:white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
-                            </svg>
-                        </div>
-                        <h3 style="font-size:1.5rem; font-weight:600; margin-bottom:1rem;">Data Analytics</h3>
-                        <p style="color:#666;">Transform your data into actionable insights with our advanced analytics solutions.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/what-input@5.2.10/dist/what-input.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/js/foundation.min.js"></script>
+    <title>Personal Study Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        $(document).foundation();
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'study-blue': '#3B82F6',
+                        'study-green': '#10B981'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">My Study Progress</h1>
+            <p class="text-gray-600">Track your daily learning goals</p>
+        </header>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-semibold mb-4">Add New Subject</h2>
+                <div class="flex gap-4">
+                    <input type="text" id="subjectInput" placeholder="Subject name" 
+                           class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-study-blue focus:border-transparent">
+                    <input type="number" id="hoursInput" placeholder="Hours goal" min="1" max="12"
+                           class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-study-blue focus:border-transparent">
+                    <button onclick="addSubject()" 
+                            class="px-6 py-2 bg-study-blue text-white rounded-lg hover:bg-blue-600 transition-colors">
+                        Add Subject
+                    </button>
+                </div>
+            </div>
+
+            <div id="subjectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+
+           
+            <div class="mt-8 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Today's Statistics</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="text-center p-4 bg-blue-50 rounded-lg">
+                        <div class="text-2xl font-bold text-study-blue" id="totalHours">0</div>
+                        <div class="text-gray-600">Hours Studied</div>
+                    </div>
+                    <div class="text-center p-4 bg-green-50 rounded-lg">
+                        <div class="text-2xl font-bold text-study-green" id="completedSubjects">0</div>
+                        <div class="text-gray-600">Goals Completed</div>
+                    </div>
+                    <div class="text-center p-4 bg-purple-50 rounded-lg">
+                        <div class="text-2xl font-bold text-purple-600" id="totalSubjects">0</div>
+                        <div class="text-gray-600">Active Subjects</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let subjects = [];
+
+        function addSubject() {
+            const subjectName = document.getElementById('subjectInput').value.trim();
+            const hoursGoal = parseInt(document.getElementById('hoursInput').value);
+            
+            if (subjectName && hoursGoal > 0) {
+                const subject = {
+                    id: Date.now(),
+                    name: subjectName,
+                    hoursGoal: hoursGoal,
+                    hoursStudied: 0,
+                    completed: false
+                };
+                
+                subjects.push(subject);
+                document.getElementById('subjectInput').value = '';
+                document.getElementById('hoursInput').value = '';
+                renderSubjects();
+                updateStats();
+            }
+        }
+
+        function addHour(id) {
+            const subject = subjects.find(s => s.id === id);
+            if (subject && subject.hoursStudied < subject.hoursGoal) {
+                subject.hoursStudied++;
+                subject.completed = subject.hoursStudied >= subject.hoursGoal;
+                renderSubjects();
+                updateStats();
+            }
+        }
+
+        function removeHour(id) {
+            const subject = subjects.find(s => s.id === id);
+            if (subject && subject.hoursStudied > 0) {
+                subject.hoursStudied--;
+                subject.completed = false;
+                renderSubjects();
+                updateStats();
+            }
+        }
+
+        function deleteSubject(id) {
+            subjects = subjects.filter(s => s.id !== id);
+            renderSubjects();
+            updateStats();
+        }
+
+        function renderSubjects() {
+            const grid = document.getElementById('subjectsGrid');
+            grid.innerHTML = subjects.map(subject => {
+                const progress = (subject.hoursStudied / subject.hoursGoal) * 100;
+                const isCompleted = subject.completed;
+                
+                return `
+                    <div class="bg-white rounded-lg shadow-md p-6 ${isCompleted ? 'ring-2 ring-study-green' : ''}">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-lg font-semibold ${isCompleted ? 'text-study-green' : 'text-gray-800'}">${subject.name}</h3>
+                            <button onclick="deleteSubject(${subject.id})" 
+                                    class="text-red-500 hover:text-red-700 text-sm">✕</button>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>Progress</span>
+                                <span>${subject.hoursStudied}/${subject.hoursGoal} hours</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-study-blue h-2 rounded-full transition-all duration-300" 
+                                     style="width: ${progress}%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <button onclick="removeHour(${subject.id})" 
+                                    class="flex-1 px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
+                                    ${subject.hoursStudied === 0 ? 'disabled' : ''}>-</button>
+                            <button onclick="addHour(${subject.id})" 
+                                    class="flex-1 px-3 py-2 bg-study-blue text-white rounded hover:bg-blue-600 transition-colors"
+                                    ${isCompleted ? 'disabled' : ''}>+</button>
+                        </div>
+                        
+                        ${isCompleted ? '<div class="mt-2 text-center text-study-green font-semibold">✓ Goal Completed!</div>' : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateStats() {
+            const totalHours = subjects.reduce((sum, s) => sum + s.hoursStudied, 0);
+            const completedSubjects = subjects.filter(s => s.completed).length;
+            const totalSubjects = subjects.length;
+            
+            document.getElementById('totalHours').textContent = totalHours;
+            document.getElementById('completedSubjects').textContent = completedSubjects;
+            document.getElementById('totalSubjects').textContent = totalSubjects;
+        }
+
+       
+        subjects = [
+            { id: 1, name: "Mathematics", hoursGoal: 3, hoursStudied: 1, completed: false },
+            { id: 2, name: "History", hoursGoal: 2, hoursStudied: 2, completed: true }
+        ];
+        renderSubjects();
+        updateStats();
     </script>
 </body>
 </html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Bootstrap Site</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    html { scroll-behavior: smooth; }
+    .hero { height: 100vh; display: flex; align-items: center; background: linear-gradient(to right, #0d6efd, #0dcaf0); color: white; }
+    .toast-container { position: fixed; bottom: 1rem; right: 1rem; z-index: 1050; }
+  </style>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">MySite</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<section id="home" class="hero text-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold">Build Better, Launch Faster</h1>
+    <p class="lead">MySite helps you craft beautiful websites with modern design and zero hassle.</p>
+    <a href="#contact" class="btn btn-light btn-lg mt-4">Get Started</a>
+  </div>
+</section>
+
+
+<section id="about" class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Who We Are</h2>
+    <p class="text-center">
+      We’re a small, passionate team building tools that help you create clean, responsive websites in minutes—not hours.
+      Our mission is to make web development easier and more accessible for everyone.
+    </p>
+  </div>
+</section>
+
+
+<section id="features" class="text-center py-5 bg-white">
+  <div class="container">
+    <h2 class="mb-5">What You Get</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <i class="bi bi-laptop display-4 text-primary"></i>
+        <h5 class="mt-3">Responsive Design</h5>
+        <p>Looks great on phones, tablets, and desktops without extra effort.</p>
+      </div>
+      <div class="col-md-4">
+        <i class="bi bi-rocket display-4 text-success"></i>
+        <h5 class="mt-3">Lightning Speed</h5>
+        <p>Optimized for performance to ensure your users never wait long.</p>
+      </div>
+      <div class="col-md-4">
+        <i class="bi bi-gear-fill display-4 text-danger"></i>
+        <h5 class="mt-3">Fully Customizable</h5>
+        <p>Change layouts, components, and styles with just a few lines of code.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="team" class="bg-light py-5 text-center">
+  <div class="container">
+    <h2 class="mb-4">Meet the Team</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-3">
+        <h5>Kaneza Amandine</h5>
+        <p class="text-muted">Lead Developer</p>
+      </div>
+      <div class="col-md-3">
+        <h5>David M.</h5>
+        <p class="text-muted">UI/UX Designer</p>
+      </div>
+      <div class="col-md-3">
+        <h5>Grace N.</h5>
+        <p class="text-muted">Marketing Manager</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="contact" class="bg-secondary text-white py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Let’s Work Together</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form id="contactForm">
+          <div class="mb-3">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="name" required />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" required />
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea class="form-control" id="message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-light w-100">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="bg-dark text-white text-center py-4">
+  <div class="container">
+    <p>&copy; 2025 MySite. Built with ❤️ and Bootstrap.</p>
+    <div class="d-flex justify-content-center gap-3 mt-2">
+      <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+      <a href="#" class="text-white"><i class="bi bi-twitter"></i></a>
+      <a href="#" class="text-white"><i class="bi bi-github"></i></a>
+    </div>
+  </div>
+</footer>
+
+
+<div class="toast-container">
+  <div class="toast align-items-center text-bg-success border-0" role="alert" id="toastMsg">
+    <div class="d-flex">
+      <div class="toast-body">
+        ✅ Message sent successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const toast = new bootstrap.Toast(document.getElementById('toastMsg'));
+    toast.show();
+    form.reset();
+  });
+</script>
+
+</body>
+</html>

@@ -3,113 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechSolutions Professional Services</title>
+    <title>Recipe Collection Manager</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .recipe-card {
+            transition: transform 0.2s;
+        }
+        .recipe-card:hover {
+            transform: translateY(-2px);
+        }
+        .difficulty-easy { color: #48c774; }
+        .difficulty-medium { color: #ffdd57; }
+        .difficulty-hard { color: #f14668; }
+    </style>
 </head>
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar is-white is-fixed-top">
-        <div class="container">
-            <div class="navbar-brand">
-                <a class="navbar-item">
-                    <h1 class="title is-4 has-text-link">TechSolutions</h1>
-                </a>
-                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-
-            <div id="navbarMenu" class="navbar-menu">
-                <div class="navbar-end">
-                    <a href="#home" class="navbar-item">Home</a>
-                    <a href="#services" class="navbar-item">Services</a>
-                    <a href="#about" class="navbar-item">About</a>
-                    <a href="#contact" class="navbar-item">Contact</a>
-                </div>
-            </div>
+   
+    <nav class="navbar is-primary" role="navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item">
+                <i class="fas fa-utensils mr-2"></i>
+                <strong>My Recipe Book</strong>
+            </a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero is-link is-fullheight-with-navbar">
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <h1 class="title is-1">
-                    Professional Tech Solutions
-                </h1>
-                <p class="subtitle is-4">
-                    Empowering businesses with cutting-edge technology and innovative solutions
-                </p>
-                <div class="buttons is-centered">
-                    <a href="#services" class="button is-light is-medium">Our Services</a>
-                    <a href="#contact" class="button is-outlined is-white is-medium">Get Started</a>
+    <div class="container mt-5">
+        <div class="box">
+            <h2 class="title is-4">
+                <i class="fas fa-plus-circle mr-2"></i>Add New Recipe
+            </h2>
+            
+            <div class="columns">
+                <div class="column is-half">
+                    <div class="field">
+                        <label class="label">Recipe Name</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" id="recipeName" placeholder="Enter recipe name">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-utensils"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label class="label">Cooking Time (minutes)</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="number" id="cookingTime" placeholder="30" min="1">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-clock"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="column is-half">
+                    <div class="field">
+                        <label class="label">Difficulty Level</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select id="difficulty">
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label class="label">Category</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select id="category">
+                                    <option value="breakfast">Breakfast</option>
+                                    <option value="lunch">Lunch</option>
+                                    <option value="dinner">Dinner</option>
+                                    <option value="dessert">Dessert</option>
+                                    <option value="snack">Snack</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="field">
+                <label class="label">Ingredients (one per line)</label>
+                <div class="control">
+                    <textarea class="textarea" id="ingredients" placeholder="1 cup flour&#10;2 eggs&#10;1/2 cup milk"></textarea>
+                </div>
+            </div>
+            
+            <div class="field">
+                <label class="label">Instructions</label>
+                <div class="control">
+                    <textarea class="textarea" id="instructions" placeholder="Step-by-step cooking instructions..."></textarea>
+                </div>
+            </div>
+            
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary is-fullwidth" onclick="addRecipe()">
+                        <span class="icon">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span>Add Recipe</span>
+                    </button>
                 </div>
             </div>
         </div>
-    </section>
+
+        <div class="box">
+            <div class="field is-grouped">
+                <div class="control">
+                    <div class="select">
+                        <select id="filterCategory" onchange="filterRecipes()">
+                            <option value="all">All Categories</option>
+                            <option value="breakfast">Breakfast</option>
+                            <option value="lunch">Lunch</option>
+                            <option value="dinner">Dinner</option>
+                            <option value="dessert">Dessert</option>
+                            <option value="snack">Snack</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control">
+                    <div class="select">
+                        <select id="filterDifficulty" onchange="filterRecipes()">
+                            <option value="all">All Difficulties</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control is-expanded">
+                    <input class="input" type="text" id="searchInput" placeholder="Search recipes..." onkeyup="filterRecipes()">
+                </div>
+            </div>
+        </div>
+
+
+        <div id="recipesContainer" class="columns is-multiline">
+            
+        </div>
+    </div>
 
     
-    <section id="services" class="section">
-        <div class="container">
-            <div class="has-text-centered mb-6">
-                <h2 class="title is-2">Our Services</h2>
-                <p class="subtitle is-5">Comprehensive solutions tailored to your business needs</p>
-            </div>
-
-            <div class="columns">
-                <div class="column">
-                    <div class="card">
-                        <div class="card-content has-text-centered">
-                            <div class="icon is-large has-text-link mb-4">
-                                <!-- Example icon (you can replace with FontAwesome or similar) -->
-                                <i class="fas fa-laptop-code fa-2x"></i>
-                            </div>
-                            <h3 class="title is-4">Web Development</h3>
-                            <p>Custom websites and web applications built with modern technologies and best practices.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
-                        <div class="card-content has-text-centered">
-                            <div class="icon is-large has-text-link mb-4">
-                                <i class="fas fa-mobile-alt fa-2x"></i>
-                            </div>
-                            <h3 class="title is-4">Mobile Apps</h3>
-                            <p>Native and cross-platform mobile applications for iOS and Android devices.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
-                        <div class="card-content has-text-centered">
-                            <div class="icon is-large has-text-link mb-4">
-                                <i class="fas fa-chart-line fa-2x"></i>
-                            </div>
-                            <h3 class="title is-4">Data Analytics</h3>
-                            <p>Transform your data into actionable insights with our advanced analytics solutions.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="modal" id="recipeModal">
+        <div class="modal-background" onclick="closeModal()"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title" id="modalTitle">Recipe Details</p>
+                <button class="delete" onclick="closeModal()"></button>
+            </header>
+            <section class="modal-card-body" id="modalBody">
+                
+            </section>
         </div>
-    </section>
+    </div>
 
-   
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const burger = document.querySelector('.navbar-burger');
-            const menu = document.querySelector('.navbar-menu');
-            burger.addEventListener('click', () => {
-                burger.classList.toggle('is-active');
-                menu.classList.toggle('is-active');
+        let recipes = [];
+
+        function addRecipe() {
+            const name = document.getElementById('recipeName').value.trim();
+            const time = document.getElementById('cookingTime').value;
+            const difficulty = document.getElementById('difficulty').value;
+            const category = document.getElementById('category').value;
+            const ingredients = document.getElementById('ingredients').value.trim();
+            const instructions = document.getElementById('instructions').value.trim();
+
+            if (name && time && ingredients && instructions) {
+                const recipe = {
+                    id: Date.now(),
+                    name,
+                    time: parseInt(time),
+                    difficulty,
+                    category,
+                    ingredients: ingredients.split('\n').filter(i => i.trim()),
+                    instructions
+                };
+
+                recipes.push(recipe);
+                clearForm();
+                displayRecipes();
+            } else {
+                alert('Please fill in all fields!');
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('recipeName').value = '';
+            document.getElementById('cookingTime').value = '';
+            document.getElementById('ingredients').value = '';
+            document.getElementById('instructions').value = '';
+        }
+
+        function displayRecipes(recipesToShow = recipes) {
+            const container = document.getElementById('recipesContainer');
+            
+            if (recipesToShow.length === 0) {
+                container.innerHTML = '<div class="column is-full"><div class="notification is-info">No recipes found. Add some recipes to get started!</div></div>';
+                return;
+            }
+
+            container.innerHTML = recipesToShow.map(recipe => {
+                const difficultyClass = `difficulty-${recipe.difficulty}`;
+                const categoryIcon = getCategoryIcon(recipe.category);
+                
+                return `
+                    <div class="column is-one-third">
+                        <div class="card recipe-card">
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <span class="icon is-large has-text-primary">
+                                            <i class="fas ${categoryIcon} fa-2x"></i>
+                                        </span>
+                                    </div>
+                                    <div class="media-content">
+                                        <p class="title is-5">${recipe.name}</p>
+                                        <p class="subtitle is-6">
+                                            <span class="tag is-light">${recipe.category}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="content">
+                                    <div class="field is-grouped is-grouped-multiline">
+                                        <div class="control">
+                                            <div class="tags has-addons">
+                                                <span class="tag">Time</span>
+                                                <span class="tag is-primary">${recipe.time} min</span>
+                                            </div>
+                                        </div>
+                                        <div class="control">
+                                            <div class="tags has-addons">
+                                                <span class="tag">Difficulty</span>
+                                                <span class="tag ${difficultyClass}">${recipe.difficulty}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <p><strong>Ingredients:</strong> ${recipe.ingredients.length} items</p>
+                                </div>
+                            </div>
+                            <footer class="card-footer">
+                                <a class="card-footer-item" onclick="viewRecipe(${recipe.id})">
+                                    <span class="icon"><i class="fas fa-eye"></i></span>
+                                    <span>View</span>
+                                </a>
+                                <a class="card-footer-item has-text-danger" onclick="deleteRecipe(${recipe.id})">
+                                    <span class="icon"><i class="fas fa-trash"></i></span>
+                                    <span>Delete</span>
+                                </a>
+                            </footer>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getCategoryIcon(category) {
+            const icons = {
+                breakfast: 'fa-coffee',
+                lunch: 'fa-hamburger',
+                dinner: 'fa-drumstick-bite',
+                dessert: 'fa-ice-cream',
+                snack: 'fa-cookie-bite'
+            };
+            return icons[category] || 'fa-utensils';
+        }
+
+        function viewRecipe(id) {
+            const recipe = recipes.find(r => r.id === id);
+            if (recipe) {
+                document.getElementById('modalTitle').textContent = recipe.name;
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="content">
+                        <h4>Details</h4>
+                        <p><strong>Category:</strong> ${recipe.category}</p>
+                        <p><strong>Cooking Time:</strong> ${recipe.time} minutes</p>
+                        <p><strong>Difficulty:</strong> ${recipe.difficulty}</p>
+                        
+                        <h4>Ingredients</h4>
+                        <ul>
+                            ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+                        </ul>
+                        
+                        <h4>Instructions</h4>
+                        <p>${recipe.instructions.replace(/\n/g, '<br>')}</p>
+                    </div>
+                `;
+                document.getElementById('recipeModal').classList.add('is-active');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('recipeModal').classList.remove('is-active');
+        }
+
+        function deleteRecipe(id) {
+            if (confirm('Are you sure you want to delete this recipe?')) {
+                recipes = recipes.filter(r => r.id !== id);
+                displayRecipes();
+            }
+        }
+
+        function filterRecipes() {
+            const categoryFilter = document.getElementById('filterCategory').value;
+            const difficultyFilter = document.getElementById('filterDifficulty').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            let filtered = recipes.filter(recipe => {
+                const matchesCategory = categoryFilter === 'all' || recipe.category === categoryFilter;
+                const matchesDifficulty = difficultyFilter === 'all' || recipe.difficulty === difficultyFilter;
+                const matchesSearch = recipe.name.toLowerCase().includes(searchTerm) || 
+                                    recipe.ingredients.some(ing => ing.toLowerCase().includes(searchTerm));
+                
+                return matchesCategory && matchesDifficulty && matchesSearch;
             });
-        });
+
+            displayRecipes(filtered);
+        }
+
+        
+        recipes = [
+            {
+                id: 1,
+                name: "Pancakes",
+                time: 20,
+                difficulty: "easy",
+                category: "breakfast",
+                ingredients: ["2 cups flour", "2 eggs", "1 cup milk", "2 tbsp sugar", "1 tsp baking powder"],
+                instructions: "Mix dry ingredients. Add wet ingredients. Cook on griddle until golden brown."
+            },
+            {
+                id: 2,
+                name: "Chocolate Cake",
+                time: 60,
+                difficulty: "hard",
+                category: "dessert",
+                ingredients: ["2 cups flour", "1 cup cocoa powder", "2 cups sugar", "3 eggs", "1 cup butter"],
+                instructions: "Cream butter and sugar. Add eggs. Mix in dry ingredients. Bake at 350°F for 30 minutes."
+            }
+        ];
+        displayRecipes();
     </script>
 </body>
 </html>
